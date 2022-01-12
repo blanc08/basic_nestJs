@@ -1,9 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseFilters } from '@nestjs/common';
+import { ForbiddenException } from 'src/forbidden.exception';
+import { HttpExceptionFilter } from 'src/http-exception.filter';
 
 @Controller('dogs')
 export class DogsController {
   @Get()
-  findAll() {
-    return 'This action returns all dogs';
+  @UseFilters(HttpExceptionFilter)
+  async findAll() {
+    throw new ForbiddenException();
   }
 }
