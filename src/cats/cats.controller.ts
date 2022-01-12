@@ -5,8 +5,10 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
+import { RolesGuard } from 'src/roles.guard';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cat } from './interfaces/cat.interface';
@@ -14,6 +16,7 @@ import { JoiValidationPipe } from './validations/joiValidation.pipe';
 import { ValidationPipe } from './validations/validation.pipe';
 
 @Controller('cats')
+@UseGuards(RolesGuard)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
