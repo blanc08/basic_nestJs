@@ -11,6 +11,7 @@ type Cat {
 
 type Query {
   cats: [Cat!]!
+  getCat(id: Int!): Cat!
 }
 
 type Mutation {

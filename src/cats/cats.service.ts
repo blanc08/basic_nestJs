@@ -19,12 +19,12 @@ export class CatsService {
   }
 
   // Find One
-  findOne(id: number): Cat {
-    return this.catsRepository[id];
+  async findOne(id: number): Promise<Cat> {
+    return await this.catsRepository.findOneOrFail(id);
   }
 
   // Remove
-  async remove(id: number): Promise<void> {
-    await this.catsRepository.delete(id);
-  }
+  // async remove(id: number): Promise<void> {
+  //   await this.catsRepository.delete(id);
+  // }
 }
