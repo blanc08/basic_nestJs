@@ -6,13 +6,8 @@ import {
 } from '@nestjs/common';
 import { CatsController } from './cats/cats.controller';
 import { CatsModule } from './cats/cats.module';
-import { DogsController } from './dogs/dogs.controller';
-import { DogsModule } from './dogs/dogs.module';
 import { logger } from './logger.middleware';
-// import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
-import { GraphQlModule } from './graph-ql/graph-ql.module';
-import { CoursesModule } from './courses/courses.module';
 import { BooksModule } from './books/books.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -32,9 +27,7 @@ import { Connection } from 'typeorm';
       autoLoadEntities: true,
     }),
     CatsModule,
-    DogsModule,
     UsersModule,
-    CoursesModule,
     BooksModule,
   ],
 })
@@ -42,8 +35,6 @@ export class AppModule implements NestModule {
   // inject database
   constructor(private connection: Connection) {}
   async configure(consumer: MiddlewareConsumer) {
-    // await something
-    // then next
     consumer
       .apply(logger)
       .exclude(
@@ -51,6 +42,6 @@ export class AppModule implements NestModule {
         { path: 'cats', method: RequestMethod.POST },
         'cats/(.*)',
       )
-      .forRoutes(CatsController, DogsController);
+      .forRoutes(CatsController);
   }
 }
