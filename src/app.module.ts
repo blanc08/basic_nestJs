@@ -20,7 +20,7 @@ import { Connection } from 'typeorm';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({}),
+    // GraphQLModule.forRoot({}),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -34,7 +34,6 @@ import { Connection } from 'typeorm';
     CatsModule,
     DogsModule,
     UsersModule,
-    GraphQlModule,
     CoursesModule,
     BooksModule,
   ],
