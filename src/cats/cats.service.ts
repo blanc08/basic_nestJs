@@ -9,7 +9,7 @@ export class CatsService {
   constructor(@InjectRepository(Cat) private catsRepository: Repository<Cat>) {}
 
   // Create
-  async create(cat: CreateCatInput) {
+  async create(cat: CreateCatInput): Promise<Cat> {
     return await this.catsRepository.save(cat);
   }
 

@@ -3,7 +3,7 @@ import { CatsService } from './cats.service';
 import { CreateCatInput } from './dto/create-cat.input';
 import { Cat } from './entities/cat.entity';
 
-@Resolver((of) => Cat)
+@Resolver(() => Cat)
 export class CatsResolver {
   constructor(private readonly catsService: CatsService) {}
 
