@@ -15,6 +15,6 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @OneToMany(() => Cat, (cat) => cat.user)
-  cats: Cat[];
+  // @OneToMany(() => Cat, (cat) => cat.user)
+  // cats: Cat[];
 }

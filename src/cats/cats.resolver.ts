@@ -1,19 +1,19 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CatsService } from './cats.service';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { CatInput } from './inputs/cat.input';
+import { CreateCatInput } from './dto/create-cat.input';
+import { Cat } from './entities/cat.entity';
 
-@Resolver()
+@Resolver((of) => Cat)
 export class CatsResolver {
   constructor(private readonly catsService: CatsService) {}
 
-  @Query(() => [CreateCatDto])
-  async cats() {
+  @Query(() => [Cat])
+  async cats(): Promise<Cat[]> {
     return this.catsService.findAll();
   }
 
-  @Mutation(() => CreateCatDto)
-  async createCat(@Args('input') input: CatInput) {
+  @Mutation(() => Cat)
+  async createCat(@Args('input') input: CreateCatInput) {
     return this.catsService.create(input);
   }
 }

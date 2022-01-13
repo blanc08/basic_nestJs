@@ -24,7 +24,6 @@ import { Connection } from 'typeorm';
   ],
 })
 export class AppModule implements NestModule {
-  // inject database
   constructor(private connection: Connection) {}
   async configure(consumer: MiddlewareConsumer) {
     consumer.apply(logger).forRoutes('cats', 'users');
