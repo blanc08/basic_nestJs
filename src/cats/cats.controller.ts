@@ -1,10 +1,8 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { RolesGuard } from 'src/roles.guard';
+import { Controller, Get } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 
 @Controller('cats')
-@UseGuards(RolesGuard)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
