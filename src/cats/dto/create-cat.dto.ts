@@ -1,12 +1,19 @@
-import { IsInt, IsString } from 'class-validator';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
+@ObjectType()
 export class CreateCatDto {
-  @IsString()
+  @Field(() => ID)
+  id: number;
+
+  @Field()
   name: string;
 
-  @IsInt()
+  @Field(() => Int)
+  userId: number;
+
+  @Field(() => Int)
   age: number;
 
-  @IsString()
+  @Field()
   breed: string;
 }
