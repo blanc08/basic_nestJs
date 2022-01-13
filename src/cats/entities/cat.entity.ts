@@ -1,28 +1,32 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from '../../entities/user.entity';
 
 // This entity field could be our both database schema & graphql object type
 @Entity()
 @ObjectType()
 export class Cat {
   @PrimaryGeneratedColumn()
-  @Field((type) => ID)
-  @PrimaryGeneratedColumn()
+  @Field(() => ID)
   id: number;
+
+  @Column()
+  @Field(() => Int)
+  userId: number;
 
   @Column()
   @Field()
   name: string;
 
   @Column()
-  @Field((type) => Int)
+  @Field(() => Int)
   age: number;
 
   @Column()
   @Field()
   breed: string;
 
-  // @ManyToOne(() => User, (user) => user.cats)
-  // user: User;
+  @ManyToOne(() => User, (user) => user.cats)
+  @Field(() => User)
+  user: User;
 }

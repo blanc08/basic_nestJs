@@ -8,11 +8,11 @@ export class CreateCatInput {
   name: string;
 
   @Field(() => Int)
+  userId: number;
+
+  @Field(() => Int)
   age: number;
 
   @Field()
   breed: string;
 }
-
-// @Field(() => Int)
-// userId: number;

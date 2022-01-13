@@ -1,4 +1,13 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { User } from 'src/users/entities/user.entity';
 import { CatsService } from './cats.service';
 import { CreateCatInput } from './dto/create-cat.input';
 import { Cat } from './entities/cat.entity';
@@ -20,5 +29,10 @@ export class CatsResolver {
   @Query(() => Cat)
   getCat(@Args('id', { type: () => Int }) id: number) {
     return this.catsService.findOne(id);
+  }
+
+  @ResolveField(() => User)
+  user(@Parent() cat: Cat) {
+    return this.catsService.getUser(cat.userId);
   }
 }

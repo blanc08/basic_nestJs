@@ -1,17 +1,27 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Cat } from 'src/cats/entities/cat.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 @ObjectType()
 export class User {
-  @Field(() => Int)
+  @PrimaryGeneratedColumn()
+  @Field(() => ID)
   id: number;
 
-  @Field(() => String)
+  @Column()
+  @Field()
   firstName: string;
 
-  @Field(() => String)
+  @Column()
+  @Field()
   lastName: string;
 
-  @Field((type) => [Cat])
-  cats: Cat[];
+  @Column({ default: true })
+  @Field()
+  isActive: boolean;
+
+  @OneToMany(() => Cat, (cat) => cat.user)
+  @Field(() => [Cat], { nullable: true })
+  cats?: Cat[];
 }

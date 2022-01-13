@@ -2,24 +2,44 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  isActive: Boolean!
+  cats: [Cat!]
+}
+
 type Cat {
   id: ID!
+  userId: Int!
   name: String!
   age: Int!
   breed: String!
+  user: User!
 }
 
 type Query {
+  users: [User!]!
+  getUser(id: Int!): User!
   cats: [Cat!]!
   getCat(id: Int!): Cat!
 }
 
 type Mutation {
+  createUser(input: CreateUserInput!): User!
   createCat(input: CreateCatInput!): Cat!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  isActive: Boolean!
 }
 
 input CreateCatInput {
   name: String!
+  userId: Int!
   age: Int!
   breed: String!
 }
