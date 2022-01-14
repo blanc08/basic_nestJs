@@ -27,15 +27,14 @@ export class UsersService {
   }
 
   async getCats(id: number): Promise<Cat[]> {
-    console.log(id);
     return await this.catsService.getCats(id);
   }
 
-  // async update(id: number, user: User) {
-  //   await this.usersRepository.update(id, user);
+  // update(id: number, updateUserInput: UpdateUserInput) {
+  //   return `This action updates a #${id} book`;
   // }
 
-  // async remove(id: number) {
-  //   await this.usersRepository.delete(id);
-  // }
+  async remove(id: number) {
+    return await this.usersRepository.delete(id);
+  }
 }

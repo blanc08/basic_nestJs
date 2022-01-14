@@ -34,4 +34,11 @@ export class UsersResolver {
   getUser(@Args('id', { type: () => Int }) id: number) {
     return this.usersService.findOne(id);
   }
+
+  @Mutation(() => User)
+  removeUser(@Args('id', { type: () => Int }) id: number) {
+    const user = this.usersService.findOne(id);
+    this.usersService.remove(id);
+    return user;
+  }
 }
