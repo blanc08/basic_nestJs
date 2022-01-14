@@ -10,6 +10,7 @@ import {
 import { CreateUserInput } from './dto/create-user.input';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
+import { UpdateUserInput } from './dto/update-user.input';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -31,14 +32,22 @@ export class UsersResolver {
   }
 
   @Query(() => User)
-  getUser(@Args('id', { type: () => Int }) id: number) {
+  async getUser(@Args('id', { type: () => Int }) id: number) {
     return this.usersService.findOne(id);
   }
 
   @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
+  async removeUser(@Args('id', { type: () => Int }) id: number) {
     const user = this.usersService.findOne(id);
     this.usersService.remove(id);
     return user;
+  }
+
+  @Mutation(() => User)
+  async updateUser(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('input') input: UpdateUserInput,
+  ) {
+    return this.usersService.update(id, input);
   }
 }

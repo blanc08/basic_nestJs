@@ -4,6 +4,7 @@ import { CatsService } from 'src/cats/cats.service';
 import { Cat } from 'src/cats/entities/cat.entity';
 import { Repository } from 'typeorm';
 import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -30,9 +31,12 @@ export class UsersService {
     return await this.catsService.getCats(id);
   }
 
-  // update(id: number, updateUserInput: UpdateUserInput) {
-  //   return `This action updates a #${id} book`;
-  // }
+  async update(id: number, updateUserInput: UpdateUserInput) {
+    // typeORM update method
+    const user = await this.usersRepository.findOneOrFail(id);
+    Object.assign(user, updateUserInput);
+    return await this.usersRepository.save(user);
+  }
 
   async remove(id: number) {
     return await this.usersRepository.delete(id);

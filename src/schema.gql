@@ -29,6 +29,7 @@ type Query {
 type Mutation {
   createUser(input: CreateUserInput!): User!
   removeUser(id: Int!): User!
+  updateUser(input: UpdateUserInput!, id: Int!): User!
   createCat(input: CreateCatInput!): Cat!
 }
 
@@ -36,6 +37,12 @@ input CreateUserInput {
   firstName: String!
   lastName: String!
   isActive: Boolean!
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  isActive: Boolean
 }
 
 input CreateCatInput {
