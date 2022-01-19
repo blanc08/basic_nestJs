@@ -11,11 +11,11 @@ export class User {
 
   @Column()
   @Field()
-  firstName: string;
+  email: string;
 
   @Column()
   @Field()
-  lastName: string;
+  username: string;
 
   @Column({ default: true })
   @Field()
