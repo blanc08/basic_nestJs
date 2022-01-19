@@ -5,10 +5,13 @@ import { IsAlpha } from 'class-validator';
 export class CreateUserInput {
   @IsAlpha()
   @Field()
-  firstName: string;
+  email: string;
 
   @Field()
-  lastName: string;
+  username: string;
+
+  @Field()
+  password: string;
 
   @Field()
   isActive: boolean;
