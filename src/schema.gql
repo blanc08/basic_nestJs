@@ -28,6 +28,11 @@ type Cat {
   user: User!
 }
 
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
 type Query {
   users: [User!]!
   getUser(id: Int!): User!
@@ -40,6 +45,7 @@ type Mutation {
   removeUser(id: Int!): User!
   updateUser(input: UpdateUserInput!, id: Int!): User!
   createCat(input: CreateCatInput!): Cat!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
 }
 
 input CreateUserInput {
@@ -61,4 +67,9 @@ input CreateCatInput {
   userId: Int!
   age: Int!
   breed: String!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
 }

@@ -27,6 +27,10 @@ export class UsersService {
     return await this.usersRepository.findOneOrFail(id);
   }
 
+  async findOneUsername(username: string): Promise<User> {
+    return await this.usersRepository.findOne({ username });
+  }
+
   async getCats(id: number): Promise<Cat[]> {
     return await this.catsService.getCats(id);
   }
