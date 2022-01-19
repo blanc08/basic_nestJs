@@ -17,9 +17,9 @@ export class User {
   @Field(() => ID)
   id: number;
 
-  @Column()
-  @Field()
-  email: string;
+  // @Column()
+  // @Field()
+  // email: string;
 
   @Column()
   @Field()
