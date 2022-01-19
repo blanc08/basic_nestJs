@@ -46,20 +46,17 @@ type Mutation {
   updateUser(input: UpdateUserInput!, id: Int!): User!
   createCat(input: CreateCatInput!): Cat!
   login(loginUserInput: LoginUserInput!): LoginResponse!
+  signup(signUpUserInput: SignUpUserInput!): User!
 }
 
 input CreateUserInput {
-  email: String!
   username: String!
   password: String!
-  isActive: Boolean!
 }
 
 input UpdateUserInput {
-  email: String
   username: String
   password: String
-  isActive: Boolean
 }
 
 input CreateCatInput {
@@ -70,6 +67,11 @@ input CreateCatInput {
 }
 
 input LoginUserInput {
+  username: String!
+  password: String!
+}
+
+input SignUpUserInput {
   username: String!
   password: String!
 }
