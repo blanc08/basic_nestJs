@@ -11,12 +11,15 @@ import { CreateUserInput } from './dto/create-user.input';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => [User])
+  @UseGuards(JwtAuthGuard)
   async users(): Promise<User[]> {
     return this.usersService.findAll();
   }
