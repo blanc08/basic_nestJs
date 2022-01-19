@@ -3,7 +3,7 @@ import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 // This entity field could be our both database schema & graphql object type
-@Entity()
+@Entity('cats')
 @ObjectType()
 export class Cat {
   @PrimaryGeneratedColumn()
