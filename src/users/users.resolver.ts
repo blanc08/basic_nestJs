@@ -33,13 +33,13 @@ export class UsersResolver {
 
   @Query(() => User)
   async getUser(@Args('id', { type: () => Int }) id: number) {
-    return this.usersService.findOne(id);
+    return await this.usersService.findOne(id);
   }
 
   @Mutation(() => User)
   async removeUser(@Args('id', { type: () => Int }) id: number) {
-    const user = this.usersService.findOne(id);
-    this.usersService.remove(id);
+    const user = await this.usersService.findOne(id);
+    await this.usersService.remove(id);
     return user;
   }
 
