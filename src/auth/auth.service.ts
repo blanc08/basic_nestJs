@@ -4,7 +4,6 @@ import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { SignUpUserInput } from './dto/signup-user.input';
 import * as bcrypt from 'bcrypt';
-import { valid } from 'joi';
 
 @Injectable()
 export class AuthService {

@@ -44,7 +44,7 @@ type Mutation {
   removeUser(id: Int!): User!
   updateUser(input: UpdateUserInput!, id: Int!): User!
   createCat(input: CreateCatInput!): Cat!
-  login(loginUserInput: LoginUserInput!): LoginResponse!
+  signin(signinUserInput: SigninUserInput!): LoginResponse!
   signup(signUpUserInput: SignUpUserInput!): User!
 }
 
@@ -65,7 +65,7 @@ input CreateCatInput {
   breed: String!
 }
 
-input LoginUserInput {
+input SigninUserInput {
   username: String!
   password: String!
 }

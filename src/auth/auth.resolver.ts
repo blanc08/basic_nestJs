@@ -3,7 +3,7 @@ import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { User } from 'src/users/entities/user.entity';
 import { AuthService } from './auth.service';
 import { LoginResponse } from './dto/login-response';
-import { LoginUserInput } from './dto/login-user.input';
+import { SigninUserInput } from './dto/signin-user.input';
 import { SignUpUserInput } from './dto/signup-user.input';
 import { GqlAuthGuard } from './gql-auth.guard';
 
@@ -13,8 +13,8 @@ export class AuthResolver {
 
   @Mutation(() => LoginResponse)
   @UseGuards(GqlAuthGuard)
-  login(
-    @Args('loginUserInput') loginUserInput: LoginUserInput,
+  signin(
+    @Args('signinUserInput') signInUserInput: SigninUserInput,
     @Context() context,
   ) {
     return this.authService.login(context.user);
