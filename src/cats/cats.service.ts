@@ -5,6 +5,7 @@ import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
 import { CreateCatInput } from './dto/create-cat.input';
+import { UpdateCatInput } from './dto/update-cat.input';
 
 @Injectable()
 export class CatsService {
@@ -37,8 +38,15 @@ export class CatsService {
     return await this.catsRepository.find({ userId: id });
   }
 
+  async update(id: number, updateCatInput: UpdateCatInput) {
+    // typeORM update method
+    const cat = await this.catsRepository.findOneOrFail(id);
+    Object.assign(cat, updateCatInput);
+    return await this.catsRepository.save(cat);
+  }
+
   // Remove
-  // async remove(id: number): Promise<void> {
-  //   await this.catsRepository.delete(id);
-  // }
+  async remove(id: number): Promise<void> {
+    await this.catsRepository.delete(id);
+  }
 }

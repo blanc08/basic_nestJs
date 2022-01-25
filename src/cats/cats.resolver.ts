@@ -10,6 +10,7 @@ import {
 import { User } from 'src/users/entities/user.entity';
 import { CatsService } from './cats.service';
 import { CreateCatInput } from './dto/create-cat.input';
+import { UpdateCatInput } from './dto/update-cat.input';
 import { Cat } from './entities/cat.entity';
 
 @Resolver(() => Cat)
@@ -29,6 +30,21 @@ export class CatsResolver {
   @Query(() => Cat)
   getCat(@Args('id', { type: () => Int }) id: number) {
     return this.catsService.findOne(id);
+  }
+
+  // Update
+  @Mutation(() => Cat)
+  async updateCat(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('input') input: UpdateCatInput,
+  ) {
+    return this.catsService.update(id, input);
+  }
+
+  // Remove
+  @Mutation(() => Cat)
+  async removeCat(@Args('id', { type: () => Int }) id: number) {
+    return this.catsService.remove(id);
   }
 
   @ResolveField(() => User)
