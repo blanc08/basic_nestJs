@@ -26,7 +26,6 @@ export class User {
   username: string;
 
   @Column()
-  @Field()
   password: string;
 
   @Column({ default: true })
