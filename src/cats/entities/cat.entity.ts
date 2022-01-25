@@ -26,6 +26,10 @@ export class Cat {
   @Field()
   breed: string;
 
+  @Column()
+  @Field()
+  description: string;
+
   @ManyToOne(() => User, (user) => user.cats)
   @Field(() => User)
   user: User;

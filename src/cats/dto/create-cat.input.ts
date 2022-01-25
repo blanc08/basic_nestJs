@@ -14,5 +14,8 @@ export class CreateCatInput {
   age: number;
 
   @Field()
+  description: number;
+
+  @Field()
   breed: string;
 }
