@@ -22,7 +22,7 @@ export class CatsService {
 
   // find All
   async findAll(): Promise<Cat[]> {
-    return await this.catsRepository.find();
+    return await this.catsRepository.find({ relations: ['user'] });
   }
 
   // Find One
