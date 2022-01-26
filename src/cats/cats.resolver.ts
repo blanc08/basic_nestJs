@@ -1,10 +1,13 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CatsService } from './cats.service';
 import { CreateCatInput } from './dto/create-cat.input';
 import { UpdateCatInput } from './dto/update-cat.input';
 import { Cat } from './entities/cat.entity';
 
 @Resolver(() => Cat)
+@UseGuards(JwtAuthGuard)
 export class CatsResolver {
   constructor(private readonly catsService: CatsService) {}
 
