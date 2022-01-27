@@ -38,9 +38,7 @@ export class AuthService {
   }
 
   async signup(signUpUserInput: SignUpUserInput) {
-    const user = await this.usersService.findOneUsername(
-      signUpUserInput.username,
-    );
+    const user = await this.usersService.findOne(signUpUserInput.username);
 
     if (user) {
       throw new Error('User already exists!');

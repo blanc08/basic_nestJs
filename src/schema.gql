@@ -40,7 +40,6 @@ type Query {
 }
 
 type Mutation {
-  createUser(input: CreateUserInput!): User!
   removeUser(id: Int!): User!
   updateUser(input: UpdateUserInput!, id: Int!): User!
   createCat(input: CreateCatInput!): Cat!
@@ -48,11 +47,6 @@ type Mutation {
   removeCat(id: Int!): Cat!
   signin(signinUserInput: SigninUserInput!): LoginResponse!
   signup(signUpUserInput: SignUpUserInput!): User!
-}
-
-input CreateUserInput {
-  username: String!
-  password: String!
 }
 
 input UpdateUserInput {

@@ -21,7 +21,7 @@ import { AuthModule } from './auth/auth.module';
       database: 'learn_nestjs',
       synchronize: true,
       autoLoadEntities: true,
-      logging: true,
+      // logging: true,
     }),
     UsersModule,
     CatsModule,

@@ -17,10 +17,6 @@ export class User {
   @Field(() => ID)
   id: number;
 
-  // @Column()
-  // @Field()
-  // email: string;
-
   @Column()
   @Field()
   username: string;
@@ -47,4 +43,5 @@ export class User {
   @DeleteDateColumn()
   @Field()
   deletedAt: Date;
+  errors: any;
 }
