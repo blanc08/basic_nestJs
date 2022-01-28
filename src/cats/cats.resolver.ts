@@ -1,6 +1,15 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { User } from 'src/users/entities/user.entity';
 import { CatsService } from './cats.service';
 import { CreateCatInput } from './dto/create-cat.input';
 import { UpdateCatInput } from './dto/update-cat.input';
@@ -41,8 +50,8 @@ export class CatsResolver {
     return this.catsService.remove(id);
   }
 
-  // @ResolveField(() => User)
-  // user(@Parent() cat: Cat) {
-  //   return this.catsService.getUser(cat.userId);
-  // }
+  @ResolveField(() => User)
+  user(@Parent() cat: Cat) {
+    return this.catsService.getUser(cat.userId);
+  }
 }

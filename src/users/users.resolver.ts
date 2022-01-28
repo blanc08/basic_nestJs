@@ -1,9 +1,18 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Cat } from 'src/cats/entities/cat.entity';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -25,6 +34,11 @@ export class UsersResolver {
     const user = await this.usersService.findOne(username);
     await this.usersService.remove(user.id);
     return user;
+  }
+
+  @ResolveField(() => [Cat])
+  cats(@Parent() user: User) {
+    return this.usersService.getCats(user.id);
   }
 
   @Mutation(() => User)

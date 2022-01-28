@@ -33,6 +33,14 @@ export class UsersService {
     return await this.usersRepository.findOne({ username });
   }
 
+  async findOneId(id: number): Promise<User> {
+    return await this.usersRepository.findOne(id);
+  }
+
+  async getCats(id: number): Promise<any> {
+    return await this.catsService.getCats(id);
+  }
+
   async update(id: number, updateUserInput: UpdateUserInput) {
     // typeORM update method
     const user = await this.usersRepository.findOneOrFail(id);
