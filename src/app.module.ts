@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
-import { ComplexityPlugin } from './auth/ComplexityPlugin';
+import { ComplexityPlugin } from './ComplexityPlugin';
 
 @Module({
   imports: [
