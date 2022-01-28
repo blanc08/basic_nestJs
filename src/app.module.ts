@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { ComplexityPlugin } from './auth/ComplexityPlugin';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { AuthModule } from './auth/auth.module';
     CatsModule,
     AuthModule,
   ],
+  providers: [ComplexityPlugin],
 })
 // export class AppModule implements NestModule {
 export class AppModule {

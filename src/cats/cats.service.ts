@@ -44,4 +44,9 @@ export class CatsService {
   async remove(id: number): Promise<void> {
     await this.catsRepository.delete(id);
   }
+
+  // Get user
+  async getUser(id: number): Promise<any> {
+    return await this.usersService.findOneId(id);
+  }
 }

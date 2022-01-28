@@ -43,4 +43,12 @@ export class UsersService {
   async remove(id: number) {
     return await this.usersRepository.delete(id);
   }
+
+  async findOneId(id: number): Promise<User> {
+    return await this.usersRepository.findOne(id);
+  }
+
+  async getCats(id: number): Promise<any> {
+    return await this.catsService.getCats(id);
+  }
 }
