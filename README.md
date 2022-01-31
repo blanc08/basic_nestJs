@@ -5,4 +5,10 @@
 
 - i cant find any good referense how to use the complexity feature correcly,
   what i'm doing here is just to set the default complexity to 0, then put 1 to each Query's complexity cost
+
   - Thus, We'll only can do 3 nested query
+
+- on
+  - https://docs.nestjs.com/graphql/complexity
+  - https://blog.logrocket.com/securing-graphql-api-using-rate-limits-and-depth-limits/
+  - https://www.apollographql.com/blog/graphql/security/securing-your-graphql-api-from-malicious-queries/

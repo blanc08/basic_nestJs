@@ -12,6 +12,7 @@ import { ComplexityPlugin } from './ComplexityPlugin';
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      // context: ({ req }) => ({ req }),
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
