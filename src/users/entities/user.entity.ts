@@ -29,7 +29,7 @@ export class User {
   isActive: boolean;
 
   @OneToMany(() => Cat, (cat) => cat.user)
-  @Field(() => [Cat], { nullable: true })
+  @Field(() => [Cat], { nullable: true, complexity: 1 })
   cats?: Cat[];
 
   @CreateDateColumn()

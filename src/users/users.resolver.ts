@@ -18,25 +18,25 @@ import { Cat } from 'src/cats/entities/cat.entity';
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Query(() => [User], { complexity: 1 })
+  @Query(() => [User])
   @UseGuards(JwtAuthGuard)
   async users(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
-  @Query(() => User, { complexity: 1 })
+  @Query(() => User)
   async getUser(@Args('id', { type: () => Int }) username: string) {
     return await this.usersService.findOne(username);
   }
 
-  @Mutation(() => User, { complexity: 1 })
+  @Mutation(() => User)
   async removeUser(@Args('id', { type: () => Int }) username: string) {
     const user = await this.usersService.findOne(username);
     await this.usersService.remove(user.id);
     return user;
   }
 
-  @Mutation(() => User, { complexity: 1 })
+  @Mutation(() => User)
   async updateUser(
     @Args('id', { type: () => Int }) id: number,
     @Args('input') input: UpdateUserInput,
@@ -44,7 +44,7 @@ export class UsersResolver {
     return this.usersService.update(id, input);
   }
 
-  @ResolveField(() => [Cat], { complexity: 1 })
+  @ResolveField(() => [Cat])
   cats(@Parent() user: User) {
     return this.usersService.getCats(user.id);
   }

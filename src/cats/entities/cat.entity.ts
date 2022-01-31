@@ -1,5 +1,4 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
-import { ComplexityEstimatorArgs } from 'graphql-query-complexity';
 import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -16,9 +15,7 @@ export class Cat {
   userId: number;
 
   @Column()
-  @Field({
-    complexity: (options: ComplexityEstimatorArgs) => console.log(options),
-  })
+  @Field()
   name: string;
 
   @Column()
@@ -34,6 +31,6 @@ export class Cat {
   description: string;
 
   @ManyToOne(() => User, (user) => user.cats)
-  @Field(() => User)
+  @Field(() => User, { complexity: 1 })
   user: User;
 }

@@ -20,23 +20,23 @@ import { Cat } from './entities/cat.entity';
 export class CatsResolver {
   constructor(private readonly catsService: CatsService) {}
 
-  @Query(() => [Cat], { complexity: 1 })
+  @Query(() => [Cat])
   async cats(): Promise<Cat[]> {
     return this.catsService.findAll();
   }
 
-  @Mutation(() => Cat, { complexity: 1 })
+  @Mutation(() => Cat)
   async createCat(@Args('input') input: CreateCatInput) {
     return this.catsService.create(input);
   }
 
-  @Query(() => Cat, { complexity: 1 })
+  @Query(() => Cat)
   getCat(@Args('id', { type: () => Int }) id: number) {
     return this.catsService.findOne(id);
   }
 
   // Update
-  @Mutation(() => Cat, { complexity: 1 })
+  @Mutation(() => Cat)
   async updateCat(
     @Args('id', { type: () => Int }) id: number,
     @Args('input') input: UpdateCatInput,
@@ -45,12 +45,12 @@ export class CatsResolver {
   }
 
   // Remove
-  @Mutation(() => Cat, { complexity: 1 })
+  @Mutation(() => Cat)
   async removeCat(@Args('id', { type: () => Int }) id: number) {
     return this.catsService.remove(id);
   }
 
-  @ResolveField(() => User, { complexity: 1 })
+  @ResolveField(() => User)
   user(@Parent() cat: Cat) {
     return this.catsService.getUser(cat.userId);
   }
