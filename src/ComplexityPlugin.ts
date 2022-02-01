@@ -4,7 +4,6 @@ import {
   GraphQLRequestListener,
 } from 'apollo-server-plugin-base';
 import { GraphQLError } from 'graphql';
-import * as depthLimit from 'graphql-depth-limit';
 import {
   fieldExtensionsEstimator,
   getComplexity,
@@ -31,12 +30,6 @@ export class ComplexityPlugin implements ApolloServerPlugin {
             simpleEstimator({ defaultComplexity: 0 }),
           ],
         });
-
-        // depthLimit(3);
-
-        // console.log(depthlimit);
-
-        // console.log(request.operationName, complexity);
 
         if (complexity > maxComplexity) {
           throw new GraphQLError(
