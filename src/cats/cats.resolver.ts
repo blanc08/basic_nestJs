@@ -8,8 +8,8 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { User } from 'src/users/entities/user.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { User } from '../users/entities/user.entity';
 import { CatsService } from './cats.service';
 import { CreateCatInput } from './dto/create-cat.input';
 import { UpdateCatInput } from './dto/update-cat.input';

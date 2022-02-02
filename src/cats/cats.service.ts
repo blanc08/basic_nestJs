@@ -1,10 +1,10 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Cat } from 'src/cats/entities/cat.entity';
-import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
+import { UsersService } from '../users/users.service';
 import { CreateCatInput } from './dto/create-cat.input';
 import { UpdateCatInput } from './dto/update-cat.input';
+import { Cat } from './entities/cat.entity';
 
 @Injectable()
 export class CatsService {

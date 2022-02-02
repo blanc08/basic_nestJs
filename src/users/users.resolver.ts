@@ -8,18 +8,18 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Cat } from 'src/cats/entities/cat.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { Cat } from '../cats/entities/cat.entity';
+import { UsersService } from './users.service';
 
 @Resolver(() => User)
+@UseGuards(JwtAuthGuard)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => [User])
-  @UseGuards(JwtAuthGuard)
   async users(): Promise<User[]> {
     return this.usersService.findAll();
   }

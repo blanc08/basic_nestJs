@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { CatsModule } from './cats/cats.module';
-import { UsersModule } from './users/users.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { ComplexityPlugin } from './ComplexityPlugin';
+import { UsersModule } from './users/users.module';
 // import * as depthLimit from 'graphql-depth-limit';
 
 @Module({
