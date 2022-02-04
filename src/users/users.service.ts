@@ -29,9 +29,9 @@ export class UsersService {
     );
   }
 
-  async findOneUsername(username: string): Promise<User> {
-    return await this.usersRepository.findOne({ username });
-  }
+  // async findOneUsername(username: string): Promise<User> {
+  //   return await this.usersRepository.findOne({ username });
+  // }
 
   async update(id: number, updateUserInput: UpdateUserInput) {
     // typeORM update method
@@ -41,7 +41,11 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    return await this.usersRepository.delete(id);
+    const response = await this.usersRepository.delete(id);
+    if (response.affected === 1) {
+      return true;
+    }
+    return false;
   }
 
   async findOneId(id: number): Promise<User> {
