@@ -41,8 +41,13 @@ export class CatsService {
   }
 
   // Remove
-  async remove(id: number): Promise<void> {
-    await this.catsRepository.delete(id);
+  async remove(id: number): Promise<Cat> {
+    const cat = await this.catsRepository.findOneOrFail(id);
+    if (cat) {
+      if (await this.catsRepository.delete(id)) {
+        return cat;
+      }
+    }
   }
 
   // Get user
