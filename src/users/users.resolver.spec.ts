@@ -80,6 +80,4 @@ describe('UsersResolver', () => {
       );
     });
   });
-
-  // Integration test
 });
