@@ -1,6 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { CreateCatInput } from './dto/create-cat.input';
 import { UpdateCatInput } from './dto/update-cat.input';
@@ -51,7 +52,7 @@ export class CatsService {
   }
 
   // Get user
-  async getUser(id: number): Promise<any> {
+  async getUser(id: number): Promise<User> {
     return await this.usersService.findOneId(id);
   }
 }
