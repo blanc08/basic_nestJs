@@ -27,7 +27,7 @@
 
 - a bit suggring to mocking resolver's arguments(specificly 'context')
 
-# API's Fields
+## API's Fields : Februay, 1th 2022
 
 - User
 
@@ -38,7 +38,6 @@
   - updatedAt
 
 - Cat
-
   - id
   - userId
   - name
@@ -46,14 +45,14 @@
   - breed
   - description
 
-  `You could build fragment freely with thoose field`
+`You could build fragment freely with thoose field`
 
-  example :
+#### example :
 
-`fragment User on User { id, username, isActive, createdAt, updatedAt, }`
-`fragment Cat on Cat { id, userId, name, age, breed, description }`
+1. `fragment User on User { id, username, isActive, createdAt, updatedAt, }`
+2. `fragment Cat on Cat { id, userId, name, age, breed, description }`
 
-### Notes
+#### Notes
 
 - Cant sign in because the new user's passsword arent hashed well
 - I did createUser, but it should be signUp !!!!!wrong query
