@@ -1,79 +1,89 @@
-import { JwtModule } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from '../app.module';
-import { Connection } from 'typeorm';
-import { getConnectionToken } from '@nestjs/typeorm';
-import { UsersModule } from '../users/users.module';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
+import { UsersService } from '../users/users.service';
+import { CatsService } from '../cats/cats.service';
+import { Cat } from '../cats/entities/cat.entity';
+import { mockedJwtService } from '../utils/mocks/jwt.service';
+import * as bcrypt from 'bcrypt';
+import { mockedUser } from './mock/user.mock';
 import { User } from '../users/entities/user.entity';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let connection: Connection;
+  let bcryptCompare: jest.Mock;
+  let findUser: jest.Mock;
+  let userData: User;
 
   beforeEach(async () => {
+    bcryptCompare = jest.fn().mockResolvedValue(true);
+    (bcrypt.compare as jest.Mock) = bcryptCompare;
+
+    userData = { ...mockedUser };
+    findUser = jest.fn().mockResolvedValue(userData);
+    const usersRepository = {
+      findOne: findUser,
+    };
+
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        AppModule,
-        PassportModule,
-        UsersModule,
-        JwtModule.register({
-          signOptions: { expiresIn: '1h' },
-          secret: 'secret',
-        }),
+      imports: [PassportModule],
+      providers: [
+        AuthService,
+        UsersService,
+        CatsService,
+        { provide: JwtService, useValue: mockedJwtService },
+        { provide: getRepositoryToken(User), useValue: usersRepository },
+        { provide: getRepositoryToken(Cat), useValue: {} },
+        AuthResolver,
+        LocalStrategy,
+        JwtStrategy,
       ],
-      providers: [AuthService, AuthResolver, LocalStrategy, JwtStrategy],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
-    connection = await module.get(getConnectionToken());
-  });
-
-  afterEach(() => {
-    return connection.close();
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  describe('validateUser', () => {
-    it('should return a user', async () => {
-      // jest.spyOn(service, 'validateUser').mockResolvedValue({});
-
-      expect(await service.validateUser('test', 'test')).toEqual(
-        expect.objectContaining({}),
-      );
-    });
-  });
-
-  // login
-  describe('login', () => {
-    it('should return a token', async () => {
-      jest.spyOn(service, 'login').mockResolvedValue({
-        access_token: 'token',
-        user: new User(),
+  describe('When accessing the data of authenticating user', () => {
+    describe('and the provided password is not valid', () => {
+      beforeEach(() => {
+        bcryptCompare.mockResolvedValue(false);
       });
-
-      expect(await service.login(new User())).toEqual({
-        access_token: 'token',
-        user: new User(),
+      it('should return null', async () => {
+        const result = await service.validateUser('admin', 'hash');
+        expect(result).toEqual(null);
       });
     });
-  });
-
-  // signup
-  describe('signup', () => {
-    it('should return a user', async () => {
-      jest.spyOn(service, 'signup').mockResolvedValue(new User());
-
-      expect(await service.signup(new User())).toEqual(
-        expect.objectContaining({}),
-      );
+    describe('and the provided password is valid', () => {
+      beforeEach(() => {
+        bcryptCompare.mockReturnValue(true);
+      });
+      describe('and the user is found in the database', () => {
+        beforeEach(() => {
+          findUser.mockResolvedValue(userData);
+        });
+        it('should return the user data', async () => {
+          const result = await service.validateUser('admin', 'hash');
+          expect(result).toBe(userData);
+        });
+      });
+      describe('and the user is not found in the database', () => {
+        beforeEach(() => {
+          findUser.mockResolvedValue(undefined);
+        });
+        it('should return null', async () => {
+          const result = await service.validateUser('admin', 'hash');
+          expect(result).toEqual(null);
+        });
+      });
     });
   });
 });

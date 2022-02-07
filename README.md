@@ -1,6 +1,33 @@
-## API
+## Update
 
-# Fields
+## testing : February, 4th 2022
+
+- Unit test
+  - Cat Resolver on function
+    -> cats
+    -> getCat
+- Integration Test
+  - Auth Service
+    -> When accessing the data of authenticating user
+    --> and the provided password is not valid
+    ---> should return null
+    --> and the provided password is valid
+    ---> and the user is found in the database
+    ----> should return the user data
+    ---> and the user is not found in the database
+    ----> should return null
+  - User Service
+    -> When get a user by username
+    -->When user exists
+    --->should return a user
+    -->When user is not exists
+    --->should return null
+
+#### Notes
+
+- a bit suggring to mocking resolver's arguments(specificly 'context')
+
+# API's Fields
 
 - User
 
