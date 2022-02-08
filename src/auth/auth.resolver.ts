@@ -15,7 +15,7 @@ export class AuthResolver {
   @UseGuards(GqlAuthGuard)
   signin(
     @Args('signinUserInput') signInUserInput: SigninUserInput,
-    @Context() context,
+    @Context() context: any,
   ) {
     return this.authService.login(context.user);
   }

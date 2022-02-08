@@ -12,6 +12,7 @@ import { Cat } from '../cats/entities/cat.entity';
 import { mockedUser } from './mock/user.mock';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
+import { Context } from '@nestjs/graphql';
 
 describe('AuthResolver', () => {
   let resolver: AuthResolver;
@@ -19,6 +20,7 @@ describe('AuthResolver', () => {
   let findUser: jest.Mock;
   let userData: User;
   let service: AuthService;
+  let strategy: LocalStrategy;
 
   beforeEach(async () => {
     bcryptCompare = jest.fn().mockResolvedValue(true);
@@ -46,6 +48,7 @@ describe('AuthResolver', () => {
 
     resolver = module.get<AuthResolver>(AuthResolver);
     service = module.get<AuthService>(AuthService);
+    strategy = module.get<LocalStrategy>(LocalStrategy);
   });
 
   it('should be defined', () => {
@@ -56,7 +59,8 @@ describe('AuthResolver', () => {
     describe('and the provided password is not valid', () => {
       beforeEach(() => {
         bcryptCompare.mockResolvedValue(false);
-        service.login = jest.fn().mockResolvedValue(null);
+        jest.spyOn(service, 'validateUser').mockResolvedValue(null);
+        // strategy.
       });
       it('should return null', async () => {
         const result = await resolver.signin(
@@ -64,8 +68,10 @@ describe('AuthResolver', () => {
             username: 'admin',
             password: 'hash',
           },
-          'context',
+          {},
         );
+        // console.log(result);
+
         expect(result).toEqual(null);
       });
     });
