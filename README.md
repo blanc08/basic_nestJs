@@ -4,24 +4,24 @@
 
 - Unit test
   - Cat Resolver on function
-    -> cats
-    -> getCat
+    1. cats
+    2. getCat
 - Integration Test
-  - Auth Service
-    -> When accessing the data of authenticating user
-    --> and the provided password is not valid
-    ---> should return null
-    --> and the provided password is valid
-    ---> and the user is found in the database
-    ----> should return the user data
-    ---> and the user is not found in the database
-    ----> should return null
-  - User Service
-    -> When get a user by username
-    -->When user exists
-    --->should return a user
-    -->When user is not exists
-    --->should return null
+  1. Auth Service
+  - When accessing the data of authenticating user
+    - and the provided password is not valid
+      - should return null
+    - and the provided password is valid
+      - and the user is found in the database
+        - should return the user data
+      - and the user is not found in the database
+        - should return null
+  2. User Service
+     - When get a user by username
+       -When user exists
+       -should return a user
+       -When user is not exists
+       -should return null
 
 #### Notes
 
