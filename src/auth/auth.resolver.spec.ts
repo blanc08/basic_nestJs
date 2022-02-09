@@ -12,7 +12,6 @@ import { Cat } from '../cats/entities/cat.entity';
 import { mockedUser } from './mock/user.mock';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { Context } from '@nestjs/graphql';
 
 describe('AuthResolver', () => {
   let resolver: AuthResolver;
@@ -20,7 +19,6 @@ describe('AuthResolver', () => {
   let findUser: jest.Mock;
   let userData: User;
   let service: AuthService;
-  let strategy: LocalStrategy;
 
   beforeEach(async () => {
     bcryptCompare = jest.fn().mockResolvedValue(true);
@@ -48,7 +46,6 @@ describe('AuthResolver', () => {
 
     resolver = module.get<AuthResolver>(AuthResolver);
     service = module.get<AuthService>(AuthService);
-    strategy = module.get<LocalStrategy>(LocalStrategy);
   });
 
   it('should be defined', () => {

@@ -62,22 +62,4 @@ describe('UsersResolver', () => {
       );
     });
   });
-
-  describe('removeUser', () => {
-    it('should return a user', async () => {
-      jest.spyOn(resolver, 'removeUser').mockResolvedValue(new User());
-      expect(await resolver.removeUser('username')).toEqual(
-        expect.objectContaining({}),
-      );
-    });
-  });
-
-  describe('updateUser', () => {
-    it('should return a user', async () => {
-      jest.spyOn(resolver, 'updateUser').mockResolvedValue(new User());
-      expect(await resolver.updateUser(1, new User())).toEqual(
-        expect.objectContaining({}),
-      );
-    });
-  });
 });
