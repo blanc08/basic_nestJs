@@ -1,5 +1,3 @@
-## Update
-
 ## testing : February, 4th 2022
 
 #### Unit test
@@ -20,25 +18,27 @@
 
 #### Notes
 
+- still struggling on manipulate resolver's arguments
 - a bit suggring to mocking resolver's arguments(specificly 'context')
 
 ## API's Fields : Februay, 1th 2022
 
-- User
+#### User
 
-  - id
-  - username
-  - isActive
-  - createdAt
-  - updatedAt
+- id
+- username
+- isActive
+- createdAt
+- updatedAt
 
-- Cat
-  - id
-  - userId
-  - name
-  - age
-  - breed
-  - description
+#### Cat
+
+- id
+- userId
+- name
+- age
+- breed
+- description
 
 `You could build fragment freely with thoose field`
 
