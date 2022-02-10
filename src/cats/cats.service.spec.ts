@@ -39,16 +39,14 @@ describe('CatsService', () => {
   describe('find', () => {
     it('should return an array of cats', async () => {
       const result = await service.find();
-
       expect(result).toEqual(expect.arrayContaining([]));
     });
   });
 
   describe('findOne', () => {
     it('should return a cat', async () => {
-      // jest.spyOn(service, 'findOne').mockResolvedValue(new Cat());
-      const result = await service.findOne(1);
-      expect(result).toEqual(expect.objectContaining({ id: 1 }));
+      const result = await service.findOne(2);
+      expect(result).toEqual(expect.objectContaining({ id: 2 }));
     });
   });
 
@@ -87,7 +85,7 @@ describe('CatsService', () => {
         description: 'test',
       };
 
-      const result = await service.update(1, cat);
+      const result = await service.update(6, cat);
 
       expect(result).toEqual(expect.objectContaining(cat));
     });
@@ -95,9 +93,9 @@ describe('CatsService', () => {
 
   describe('deleteCat', () => {
     it('should delete a cat', async () => {
-      const result = await service.remove(3);
+      const result = await service.remove(24);
 
-      expect(result).toEqual(expect.objectContaining({ id: 3 }));
+      expect(result).toEqual(expect.objectContaining({ id: 24 }));
     });
   });
 
@@ -105,8 +103,6 @@ describe('CatsService', () => {
   describe('getUser', () => {
     it('should return a user', async () => {
       const result = await service.getUser(1);
-      console.log(result);
-
       expect(result).toEqual(expect.objectContaining({}));
     });
   });

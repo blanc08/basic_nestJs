@@ -45,12 +45,12 @@ describe('CatsResolver', () => {
     });
   });
 
-  describe('cat', () => {
+  describe('when find a cat', () => {
     it('should return a cat', async () => {
-      const result = await resolver.getCat(1);
+      const result = await resolver.getCat(2);
       // console.log(result);
 
-      expect(result).toEqual(expect.objectContaining({}));
+      expect(result).toEqual(expect.objectContaining({ id: 2 }));
     });
   });
 
@@ -86,9 +86,9 @@ describe('CatsResolver', () => {
 
   describe('deleteCat', () => {
     it('should return a cat', async () => {
-      const result = await resolver.removeCat(5);
+      const result = await resolver.removeCat(26);
 
-      expect(result).toEqual(expect.objectContaining({}));
+      expect(result).toEqual(expect.objectContaining({ id: 26 }));
     });
   });
 });

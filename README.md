@@ -2,28 +2,36 @@
 
 ## testing : February, 4th 2022
 
-- Unit test
-  - User Service
-    !['proof'](/assets/images/user.service.png)
-  - Cat Resolver on function
-    1. cats
-    2. getCat
-- Integration Test
-  1. Auth Service
-  - When accessing the data of authenticating user
-    - and the provided password is not valid
+#### Unit test
+
+- User Service
+  !['proof'](/assets/images/user.service.png)
+- User Resolver
+  !['proof'](/assets/images/user.resolver.png)
+- Cat Service
+  !['proof'](/assets/images/cat.service.png)
+- Cat Resolver
+  !['proof'](/assets/images/cat.resolver.png)
+
+#### Integration Test
+
+1. Auth Service
+
+- When accessing the data of authenticating user
+  - and the provided password is not valid
+    - should return null
+  - and the provided password is valid
+    - and the user is found in the database
+      - should return the user data
+    - and the user is not found in the database
       - should return null
-    - and the provided password is valid
-      - and the user is found in the database
-        - should return the user data
-      - and the user is not found in the database
-        - should return null
-  2. User Service
-     - When get a user by username
-       -When user exists
-       -should return a user
-       -When user is not exists
-       -should return null
+
+2. User Service
+   - When get a user by username
+     -When user exists
+     -should return a user
+     -When user is not exists
+     -should return null
 
 #### Notes
 
