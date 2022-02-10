@@ -53,6 +53,6 @@ export class CatsService {
 
   // Get user
   async getUser(id: number): Promise<User> {
-    return await this.usersService.findOneId(id);
+    return await this.usersService.findById(id);
   }
 }
