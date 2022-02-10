@@ -22,7 +22,7 @@ export class CatsResolver {
 
   @Query(() => [Cat])
   async cats(): Promise<Cat[]> {
-    return this.catsService.findAll();
+    return this.catsService.find();
   }
 
   @Mutation(() => Cat)

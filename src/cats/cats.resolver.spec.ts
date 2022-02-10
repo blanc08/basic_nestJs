@@ -47,8 +47,46 @@ describe('CatsResolver', () => {
 
   describe('cat', () => {
     it('should return a cat', async () => {
-      const result = await resolver.getCat(6);
+      const result = await resolver.getCat(1);
       // console.log(result);
+
+      expect(result).toEqual(expect.objectContaining({}));
+    });
+  });
+
+  describe('createCat', () => {
+    it('should return a cat', async () => {
+      const data = {
+        name: '2th Astrid',
+        userId: 1,
+        age: 2,
+        description: 'Astrid is a cat',
+        breed: 'Persian',
+      };
+      const result = await resolver.createCat(data);
+
+      expect(result).toEqual(expect.objectContaining(data));
+    });
+  });
+
+  describe('updateCat', () => {
+    it('should return a cat', async () => {
+      const data = {
+        name: '2nd Astrid',
+        userId: 1,
+        age: 2,
+        description: 'Astrid is a cat',
+        breed: 'Persian',
+      };
+      const result = await resolver.updateCat(2, data);
+
+      expect(result).toEqual(expect.objectContaining(data));
+    });
+  });
+
+  describe('deleteCat', () => {
+    it('should return a cat', async () => {
+      const result = await resolver.removeCat(5);
 
       expect(result).toEqual(expect.objectContaining({}));
     });

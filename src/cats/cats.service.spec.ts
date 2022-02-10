@@ -39,9 +39,11 @@ describe('CatsService', () => {
 
   describe('findAll', () => {
     it('should return an array of cats', async () => {
-      jest.spyOn(service, 'findAll').mockResolvedValue([new Cat()]);
+      const result = await service.find();
 
-      expect(await service.findAll()).toEqual(expect.arrayContaining([]));
+      console.log(result);
+
+      expect(result).toEqual(expect.arrayContaining([]));
     });
   });
 

@@ -4,6 +4,7 @@ import { CatsService } from '../cats/cats.service';
 import { Cat } from '../cats/entities/cat.entity';
 import { mockedUsers } from '../utils/mocks/user.mock';
 import { User } from './entities/user.entity';
+import { mockedUsersRepository } from './mock/mockedUsersRepository';
 import { UsersResolver } from './users.resolver';
 import { UsersService } from './users.service';
 
@@ -15,19 +16,11 @@ describe('UsersService', () => {
     // User repo
     users = mockedUsers;
 
-    const usersRepository = {
-      findOne: jest
-        .fn()
-        .mockImplementation((username) =>
-          users.filter((user) => user.username === username),
-        ),
-    };
-
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CatsService,
         UsersService,
-        { provide: getRepositoryToken(User), useValue: usersRepository },
+        { provide: getRepositoryToken(User), useValue: mockedUsersRepository },
         { provide: getRepositoryToken(Cat), useValue: {} },
         UsersResolver,
       ],

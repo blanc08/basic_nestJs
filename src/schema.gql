@@ -40,18 +40,11 @@ type Query {
 }
 
 type Mutation {
-  removeUser(id: Int!): User!
-  updateUser(input: UpdateUserInput!, id: Int!): User!
   createCat(input: CreateCatInput!): Cat!
   updateCat(input: UpdateCatInput!, id: Int!): Cat!
   removeCat(id: Int!): Cat!
   signin(signinUserInput: SigninUserInput!): LoginResponse!
   signup(signUpUserInput: SignUpUserInput!): User!
-}
-
-input UpdateUserInput {
-  username: String
-  password: String
 }
 
 input CreateCatInput {
