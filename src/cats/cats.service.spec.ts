@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getConnectionToken, TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { AppModule } from '../app.module';
-import { User } from '../users/entities/user.entity';
 import { UsersModule } from '../users/users.module';
 import { CatsResolver } from './cats.resolver';
 import { CatsService } from './cats.service';
@@ -37,11 +36,9 @@ describe('CatsService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('findAll', () => {
+  describe('find', () => {
     it('should return an array of cats', async () => {
       const result = await service.find();
-
-      console.log(result);
 
       expect(result).toEqual(expect.arrayContaining([]));
     });
@@ -49,17 +46,18 @@ describe('CatsService', () => {
 
   describe('findOne', () => {
     it('should return a cat', async () => {
-      jest.spyOn(service, 'findOne').mockResolvedValue(new Cat());
-
-      expect(await service.findOne(1)).toEqual(expect.objectContaining({}));
+      // jest.spyOn(service, 'findOne').mockResolvedValue(new Cat());
+      const result = await service.findOne(1);
+      expect(result).toEqual(expect.objectContaining({ id: 1 }));
     });
   });
 
   describe('getCats', () => {
     it('should return an array of cats', async () => {
-      jest.spyOn(service, 'remove').mockResolvedValue(new Cat());
       const userId = 1;
-      expect(await service.getCats(userId)).toEqual(expect.arrayContaining([]));
+      const result = await service.getCats(userId);
+
+      expect(result).toEqual(expect.arrayContaining([]));
     });
   });
 
@@ -73,30 +71,9 @@ describe('CatsService', () => {
         description: 'test',
       };
 
-      // result
-      const result = {
-        id: 1,
-        name: 'test',
-        userId: 1,
-        age: 1,
-        user: {
-          id: 1,
-          username: 'test',
-          password: 'test',
-          isActive: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          deletedAt: null,
-          errors: null,
-        },
-        breed: 'test',
-        description: 'test',
-      };
+      const result = await service.create(cat);
 
-      jest
-        .spyOn(service, 'create')
-        .mockResolvedValue(new Promise((resolve) => resolve(result)));
-      expect(await service.create(cat)).toEqual(expect.objectContaining(cat));
+      expect(result).toEqual(expect.objectContaining(cat));
     });
   });
 
@@ -109,73 +86,28 @@ describe('CatsService', () => {
         breed: 'test',
         description: 'test',
       };
-      // result
-      const result = {
-        id: 1,
-        name: 'test',
-        userId: 1,
-        age: 1,
-        user: {
-          id: 1,
-          username: 'test',
-          password: 'test',
-          isActive: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          deletedAt: null,
-          errors: null,
-        },
-        breed: 'test',
-        description: 'test',
-      };
 
-      jest
-        .spyOn(service, 'update')
-        .mockResolvedValue(new Promise((resolve) => resolve(result)));
-      expect(await service.update(1, cat)).toEqual(
-        expect.objectContaining(cat),
-      );
+      const result = await service.update(1, cat);
+
+      expect(result).toEqual(expect.objectContaining(cat));
     });
   });
 
   describe('deleteCat', () => {
     it('should delete a cat', async () => {
-      // result
-      const result = {
-        id: 3,
-        name: 'test',
-        userId: 1,
-        age: 1,
-        user: {
-          id: 1,
-          username: 'test',
-          password: 'test',
-          isActive: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          deletedAt: null,
-          errors: null,
-        },
-        breed: 'test',
-        description: 'test',
-      };
+      const result = await service.remove(3);
 
-      jest
-        .spyOn(service, 'remove')
-        .mockResolvedValue(new Promise((resolve) => resolve(result)));
-
-      expect(await service.remove(3)).toEqual(
-        expect.objectContaining({ id: 3 }),
-      );
+      expect(result).toEqual(expect.objectContaining({ id: 3 }));
     });
   });
 
   // get user
   describe('getUser', () => {
     it('should return a user', async () => {
-      jest.spyOn(service, 'getUser').mockResolvedValue(new User());
+      const result = await service.getUser(1);
+      console.log(result);
 
-      expect(await service.getUser(1)).toEqual(expect.objectContaining({}));
+      expect(result).toEqual(expect.objectContaining({}));
     });
   });
 });
