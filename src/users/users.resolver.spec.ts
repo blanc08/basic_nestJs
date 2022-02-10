@@ -38,28 +38,25 @@ describe('UsersResolver', () => {
 
   describe('users', () => {
     it('should return an array of users', async () => {
-      jest.spyOn(resolver, 'users').mockResolvedValue([new User()]);
-
-      expect(await resolver.users()).toEqual(expect.arrayContaining([]));
+      const result = await resolver.users();
+      expect(result).toEqual(expect.arrayContaining([]));
     });
   });
 
   describe('user', () => {
     it('should return a user', async () => {
-      jest.spyOn(resolver, 'getUser').mockResolvedValue(new User());
-
-      expect(await resolver.getUser('admin')).toEqual(
-        expect.objectContaining({}),
-      );
+      const result = await resolver.getUser('admin');
+      expect(result).toEqual(expect.objectContaining(result));
     });
   });
 
   describe('getCats', () => {
     it('should return an array of cats', async () => {
-      jest.spyOn(resolver, 'cats').mockResolvedValue([new User()]);
-      expect(await resolver.cats(new User())).toEqual(
-        expect.arrayContaining([]),
-      );
+      const user = new User();
+      user.id = 1;
+
+      const result = await resolver.cats(user);
+      expect(result).toEqual(expect.arrayContaining([]));
     });
   });
 });
