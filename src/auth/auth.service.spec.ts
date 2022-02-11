@@ -56,6 +56,7 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
 
+  // signin
   describe('When accessing the data of authenticating user', () => {
     describe('and the provided password is not valid', () => {
       beforeEach(() => {
@@ -91,6 +92,7 @@ describe('AuthService', () => {
     });
   });
 
+  // signup
   describe('When user trying to signup ', () => {
     describe('and the user is found in the database', () => {
       beforeEach(() => {
