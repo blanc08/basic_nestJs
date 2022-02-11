@@ -17,17 +17,21 @@ import { User } from '../users/entities/user.entity';
 describe('AuthService', () => {
   let service: AuthService;
   let bcryptCompare: jest.Mock;
+  let bcryptHash: jest.Mock;
   let findUser: jest.Mock;
   let userData: User;
 
   beforeEach(async () => {
     bcryptCompare = jest.fn().mockResolvedValue(true);
     (bcrypt.compare as jest.Mock) = bcryptCompare;
+    bcryptHash = jest.fn().mockResolvedValue('hashedPassword');
+    (bcrypt.hash as jest.Mock) = bcryptHash;
 
     userData = { ...mockedUser };
     findUser = jest.fn().mockResolvedValue(userData);
     const usersRepository = {
       findOne: findUser,
+      save: jest.fn().mockResolvedValue(userData),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -83,6 +87,35 @@ describe('AuthService', () => {
           const result = await service.validateUser('admin', 'hash');
           expect(result).toEqual(null);
         });
+      });
+    });
+  });
+
+  describe('When user trying to signup ', () => {
+    describe('and the user is found in the database', () => {
+      beforeEach(() => {
+        findUser.mockResolvedValue(userData);
+      });
+      it('should throw an error', async () => {
+        await expect(
+          service.signup({
+            username: 'admin',
+            password: 'hash',
+          }),
+        ).rejects.toThrowError('User already exists');
+      });
+    });
+    describe('and the user is not found in the database', () => {
+      beforeEach(() => {
+        findUser.mockResolvedValue(undefined);
+      });
+      it('should return new user', async () => {
+        const newUser = new User();
+        newUser.username = 'admin2';
+        newUser.password = 'hash';
+
+        const result = await service.signup(newUser);
+        expect(result).toBeDefined();
       });
     });
   });
