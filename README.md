@@ -16,6 +16,11 @@
 - Auth Service
   !['proof'](/assets/images/auth.service.png)
 
+#### e2e Test
+
+- Auth sign in (No Authorization) and cats query (with Authorization)
+  !['proof'](/assets/images/e2e.png)
+
 #### Notes
 
 - still struggling on manipulate resolver's arguments
