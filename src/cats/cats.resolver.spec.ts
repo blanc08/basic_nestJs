@@ -1,4 +1,4 @@
-import { forwardRef, NotFoundException } from '@nestjs/common';
+import { forwardRef } from '@nestjs/common';
 import { AppModule } from '../app.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getConnectionToken, TypeOrmModule } from '@nestjs/typeorm';

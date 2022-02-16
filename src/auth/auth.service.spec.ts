@@ -65,9 +65,9 @@ describe('AuthService', () => {
       beforeEach(() => {
         bcryptCompare.mockResolvedValue(false);
       });
-      it('should return null', async () => {
+      it('should throw error', async () => {
         const result = await service.validateUser('admin', 'hash');
-        expect(result).toEqual(null);
+        expect(result).toThrow();
       });
     });
     describe('and the provided password is valid', () => {
@@ -87,9 +87,9 @@ describe('AuthService', () => {
         beforeEach(() => {
           findUser.mockResolvedValue(undefined);
         });
-        it('should return null', async () => {
+        it('should throw an error', async () => {
           const result = await service.validateUser('admin', 'hash');
-          expect(result).toEqual(null);
+          expect(result).rejects.toThrowError();
         });
       });
     });
