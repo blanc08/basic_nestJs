@@ -1,4 +1,4 @@
-import { forwardRef } from '@nestjs/common';
+import { forwardRef, NotFoundException } from '@nestjs/common';
 import { AppModule } from '../app.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getConnectionToken, TypeOrmModule } from '@nestjs/typeorm';
@@ -10,6 +10,7 @@ import { Cat } from './entities/cat.entity';
 
 describe('CatsResolver', () => {
   let resolver: CatsResolver;
+  let service: CatsService;
   let connection: Connection;
 
   beforeEach(async () => {
@@ -24,6 +25,7 @@ describe('CatsResolver', () => {
     }).compile();
 
     resolver = module.get<CatsResolver>(CatsResolver);
+    service = module.get<CatsService>(CatsService);
     connection = await module.get(getConnectionToken());
   });
 
@@ -37,11 +39,20 @@ describe('CatsResolver', () => {
   });
 
   describe('cats', () => {
-    it('should return an array of cats', async () => {
-      const result = await resolver.cats();
-      // console.log(result);
-
-      expect(result).toEqual(expect.arrayContaining([]));
+    describe('cat found', () => {
+      it('should return an array of cats', async () => {
+        const result = await resolver.cats();
+        expect(result).toEqual(expect.arrayContaining([]));
+      });
+    });
+    describe('cat not found', () => {
+      it('should thow an error', async () => {
+        jest.spyOn(service, 'find').mockResolvedValue([]);
+        const result = await resolver.cats();
+        // expect(result).toBeInstanceOf(NotFoundException);
+        // expect(result).toThrow('Cats not found');
+        expect(result).toThrowError('Cats not found');
+      });
     });
   });
 

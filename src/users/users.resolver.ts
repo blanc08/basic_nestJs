@@ -1,11 +1,4 @@
-import {
-  Args,
-  Int,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { User } from './entities/user.entity';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -19,12 +12,22 @@ export class UsersResolver {
 
   @Query(() => [User])
   async users(): Promise<User[]> {
-    return this.usersService.find();
+    const result = await this.usersService.find();
+    if (result.length === 0) {
+      throw new Error('Users not found');
+    }
+    return result;
   }
 
   @Query(() => User)
-  async getUser(@Args('id', { type: () => Int }) username: string) {
-    return await this.usersService.findOne(username);
+  async getUser(@Args('username') username: string) {
+    const result = await this.usersService.findOne(username);
+
+    if (!result) {
+      throw new Error('User not found');
+    }
+
+    return result;
   }
 
   @ResolveField(() => [Cat])

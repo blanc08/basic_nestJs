@@ -19,7 +19,7 @@ type User {
   cats: [Cat!]
   createdAt: DateTime!
   updatedAt: DateTime!
-  deletedAt: DateTime!
+  deletedAt: DateTime
 }
 
 """
@@ -34,7 +34,7 @@ type LoginResponse {
 
 type Query {
   users: [User!]!
-  getUser(id: Int!): User!
+  getUser(username: String!): User!
   cats: [Cat!]!
   getCat(id: Int!): Cat!
 }

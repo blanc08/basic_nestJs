@@ -16,15 +16,15 @@ export class AuthService {
     const user = await this.usersService.findOne(username);
 
     if (!user) {
-      return null;
+      throw new Error('Username or password is incorrect');
     }
 
     const valid = await bcrypt.compare(password, user.password);
-    if (valid) {
-      delete user.password;
-      return user;
+    if (!valid) {
+      throw new Error('Username or password is incorrect');
     }
-    return null;
+    delete user.password;
+    return user;
   }
 
   async login(user: User) {

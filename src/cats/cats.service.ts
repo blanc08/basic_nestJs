@@ -22,7 +22,8 @@ export class CatsService {
 
   // find All
   async find(): Promise<Cat[]> {
-    return await this.catsRepository.find({ relations: ['user'] });
+    const response = await this.catsRepository.find({ relations: ['user'] });
+    return response;
   }
 
   // Find One

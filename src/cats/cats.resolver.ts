@@ -1,4 +1,4 @@
-import { UseGuards } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
 import {
   Args,
   Int,
@@ -21,8 +21,13 @@ export class CatsResolver {
   constructor(private readonly catsService: CatsService) {}
 
   @Query(() => [Cat])
-  async cats(): Promise<Cat[]> {
-    return this.catsService.find();
+  async cats(): Promise<Cat[] | NotFoundException> {
+    const result = await this.catsService.find();
+
+    if (result.length === 0) {
+      throw new NotFoundException('Cats not found');
+    }
+    return result;
   }
 
   @Mutation(() => Cat)

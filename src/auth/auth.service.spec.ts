@@ -29,10 +29,7 @@ describe('AuthService', () => {
 
     userData = { ...mockedUser };
     findUser = jest.fn().mockResolvedValue(userData);
-    const usersRepository = {
-      findOne: findUser,
-      save: jest.fn().mockResolvedValue(userData),
-    };
+    // const usersRepository =
 
     const module: TestingModule = await Test.createTestingModule({
       imports: [PassportModule],
@@ -41,7 +38,13 @@ describe('AuthService', () => {
         UsersService,
         CatsService,
         { provide: JwtService, useValue: mockedJwtService },
-        { provide: getRepositoryToken(User), useValue: usersRepository },
+        {
+          provide: getRepositoryToken(User),
+          useValue: {
+            findOne: findUser,
+            save: jest.fn().mockResolvedValue(userData),
+          },
+        },
         { provide: getRepositoryToken(Cat), useValue: {} },
         AuthResolver,
         LocalStrategy,
