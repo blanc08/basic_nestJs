@@ -11,7 +11,6 @@ import { CatsService } from '../cats/cats.service';
 import { Cat } from '../cats/entities/cat.entity';
 import { mockedJwtService } from '../utils/mocks/jwt.service';
 import * as bcrypt from 'bcrypt';
-import { mockedUser } from './mock/user.mock';
 import { User } from '../users/entities/user.entity';
 
 describe('AuthService', () => {
@@ -27,7 +26,17 @@ describe('AuthService', () => {
     bcryptHash = jest.fn().mockResolvedValue('hashedPassword');
     (bcrypt.hash as jest.Mock) = bcryptHash;
 
-    userData = { ...mockedUser };
+    userData = {
+      id: 1,
+      username: 'admin',
+      password: 'hash',
+      isActive: true,
+      cats: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+      errors: [],
+    };
     findUser = jest.fn().mockResolvedValue(userData);
     // const usersRepository =
 

@@ -10,6 +10,7 @@ import { UsersService } from './users.service';
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;
+  let service: UsersService;
   let connection: Connection;
 
   beforeEach(async () => {
@@ -24,6 +25,7 @@ describe('UsersResolver', () => {
     }).compile();
 
     resolver = module.get<UsersResolver>(UsersResolver);
+    service = module.get<UsersService>(UsersService);
     connection = await module.get(getConnectionToken());
   });
 
@@ -37,16 +39,40 @@ describe('UsersResolver', () => {
   });
 
   describe('users', () => {
-    it('should return an array of users', async () => {
-      const result = await resolver.users();
-      expect(result).toEqual(expect.arrayContaining([]));
+    describe('users found', () => {
+      it('should return an array of users', async () => {
+        const result = await resolver.users();
+        expect(result).toEqual(expect.arrayContaining([]));
+      });
+    });
+    describe('users not found', () => {
+      it('should thow an error', async () => {
+        jest.spyOn(service, 'find').mockResolvedValue([]);
+        try {
+          await resolver.users();
+        } catch (error) {
+          expect(error).toBeInstanceOf(Error);
+        }
+      });
     });
   });
 
   describe('user', () => {
-    it('should return a user', async () => {
-      const result = await resolver.getUser('admin');
-      expect(result).toEqual(expect.objectContaining(result));
+    describe('user found', () => {
+      it('should return a user', async () => {
+        const result = await resolver.getUser('admin');
+        expect(result).toEqual(expect.objectContaining(result));
+      });
+    });
+    describe('user not found', () => {
+      it('should thow an error', async () => {
+        jest.spyOn(service, 'findOne').mockResolvedValue(undefined);
+        try {
+          await resolver.getUser('admin');
+        } catch (error) {
+          expect(error).toBeInstanceOf(Error);
+        }
+      });
     });
   });
 

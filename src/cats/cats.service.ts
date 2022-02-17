@@ -46,9 +46,8 @@ export class CatsService {
   async remove(id: number): Promise<Cat> {
     const cat = await this.catsRepository.findOneOrFail(id);
     if (cat) {
-      if (await this.catsRepository.delete(id)) {
-        return cat;
-      }
+      await this.catsRepository.delete(id);
+      return cat;
     }
   }
 
