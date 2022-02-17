@@ -66,8 +66,11 @@ describe('AuthService', () => {
         bcryptCompare.mockResolvedValue(false);
       });
       it('should throw error', async () => {
-        const result = await service.validateUser('admin', 'hash');
-        expect(result).toThrow();
+        try {
+          await service.validateUser('admin', 'hash');
+        } catch (error) {
+          expect(error).toBeInstanceOf(Error);
+        }
       });
     });
     describe('and the provided password is valid', () => {
@@ -88,8 +91,11 @@ describe('AuthService', () => {
           findUser.mockResolvedValue(undefined);
         });
         it('should throw an error', async () => {
-          const result = await service.validateUser('admin', 'hash');
-          expect(result).rejects.toThrowError();
+          try {
+            await service.validateUser('admin', 'hash');
+          } catch (error) {
+            expect(error).toBeInstanceOf(Error);
+          }
         });
       });
     });
