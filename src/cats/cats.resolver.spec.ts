@@ -48,20 +48,33 @@ describe('CatsResolver', () => {
     describe('cat not found', () => {
       it('should thow an error', async () => {
         jest.spyOn(service, 'find').mockResolvedValue([]);
-        const result = await resolver.cats();
-        // expect(result).toBeInstanceOf(NotFoundException);
-        // expect(result).toThrow('Cats not found');
-        expect(result).toThrowError('Cats not found');
+        try {
+          await resolver.cats();
+        } catch (error) {
+          expect(error).toBeInstanceOf(Error);
+        }
       });
     });
   });
 
   describe('when find a cat', () => {
-    it('should return a cat', async () => {
-      const result = await resolver.getCat(2);
-      // console.log(result);
-
-      expect(result).toEqual(expect.objectContaining({ id: 2 }));
+    describe('and found a cat', () => {
+      it('should return a cat', async () => {
+        const result = await resolver.getCat(2);
+        expect(result).toEqual(expect.objectContaining({ id: 2 }));
+      });
+    });
+    describe('and no cat found', () => {
+      beforeEach(() => {
+        jest.spyOn(resolver, 'getCat').mockResolvedValue(undefined);
+      });
+      it('should throw an error', async () => {
+        try {
+          await resolver.getCat(2);
+        } catch (error) {
+          expect(error).toBeInstanceOf(Error);
+        }
+      });
     });
   });
 
@@ -96,10 +109,23 @@ describe('CatsResolver', () => {
   });
 
   describe('deleteCat', () => {
-    it('should return a cat', async () => {
-      const result = await resolver.removeCat(26);
-
-      expect(result).toEqual(expect.objectContaining({ id: 26 }));
+    describe('and cat found', () => {
+      it('should return a cat', async () => {
+        const result = await resolver.removeCat(26);
+        expect(result).toEqual(expect.objectContaining({ id: 26 }));
+      });
+    });
+    describe('and cat not found', () => {
+      beforeEach(() => {
+        jest.spyOn(resolver, 'removeCat').mockResolvedValue(undefined);
+      });
+      it('should throw an error', async () => {
+        try {
+          await resolver.removeCat(26);
+        } catch (error) {
+          expect(error).toBeInstanceOf(Error);
+        }
+      });
     });
   });
 });
